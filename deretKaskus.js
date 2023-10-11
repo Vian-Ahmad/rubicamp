@@ -16,8 +16,7 @@ function deretKaskus (n){
 
        } 
     
-    return basket;
-    
+    return basket; 
 }
 
 console.log(deretKaskus(10));
