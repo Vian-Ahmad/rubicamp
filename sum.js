@@ -3,7 +3,6 @@ function sum(){
        let subSum = 0
          for (let i = 0; i < arguments.length; i++) {
                subSum = subSum + arguments[i] 
-
           }
           console.log(subSum)
 
