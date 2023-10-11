@@ -4,7 +4,7 @@ function indexPrime(param1) {
     let prima = 2;
 
     while (result.length < param1) {
-        var confirm = true;
+        let confirm = true;
 
         for (let i = 2; i <= Math.sqrt(prima); i++) {
             if (prima % i === 0) {
