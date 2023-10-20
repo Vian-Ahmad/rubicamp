@@ -32,7 +32,7 @@ rl.on('line', (line) => {
         data.push(data[wadah])
         data.splice(wadah, 1)
     } else if (line.toString().toLowerCase() == data[wadah].term.toLowerCase()) {
-        console.log('\nAnda beruntung!\n')
+        console.log('Anda beruntung!\n')
         wadah++
         kesalahan = 1
     } else {
