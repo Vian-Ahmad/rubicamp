@@ -1,4 +1,4 @@
-if(process.argv[2]){
+if(!process.argv[2]){
     console.log('tolong sertakan nama file sebagai inputan soalnya\n')
     console.log('misalnya: node tebakan.js soal.json')
     process.exit(1);
@@ -30,7 +30,7 @@ rl.on('line', (line) => {
 
     if (line.toString().toLowerCase() == 'skip') {
         data.push(data[wadah])
-        wadah++
+        data.splice(wadah, 1)
     } else if (line.toString().toLowerCase() == data[wadah].term.toLowerCase()) {
         console.log('\nAnda beruntung!\n')
         wadah++
