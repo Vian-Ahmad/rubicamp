@@ -1,3 +1,10 @@
+if(process.argv[2]){
+    console.log('tolong sertakan nama file sebagai inputan soalnya\n')
+    console.log('misalnya: node tebakan.js soal.json')
+    process.exit(1);
+}
+
+
 const { readFileSync } = require('node:fs');
 
 const readline = require('node:readline');
@@ -8,7 +15,7 @@ const rl = readline.createInterface({
 
 });
 
-const data = JSON.parse(readFileSync('data.json', 'utf-8'));
+const data = JSON.parse(readFileSync(process.argv[2], 'utf-8'));
 let wadah = 0
 let kesalahan = 1
 
@@ -28,7 +35,7 @@ rl.on('line', (line) => {
         console.log('\nAnda beruntung!\n')
         wadah++
         kesalahan = 1
-    } else{
+    } else {
         console.log(`\nAnda Kurang Beruntung! anda telah salah ${kesalahan} kali, silahkan coba lagi.\n`)
         kesalahan++
     }
@@ -36,9 +43,7 @@ rl.on('line', (line) => {
     if (wadah == data.length) {
         rl.close()
     }
-        
-    
-        
+
     console.log('\npertanyaan:', data[wadah].definition)
 
 
