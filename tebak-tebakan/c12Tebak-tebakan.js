@@ -41,6 +41,7 @@ rl.on('line', (line) => {
     }
 
     if (wadah == data.length) {
+        console.log('Anda Berhasil!')
         rl.close()
     }
 
@@ -49,6 +50,6 @@ rl.on('line', (line) => {
 
     rl.prompt();
 }).on('close', () => {
-    console.log('Anda Berhasil!')
+    console.log('Terima Kasih, Sampai Jumpa!')
     process.exit(0);
 });
