@@ -7,8 +7,10 @@ const taging = process.argv.slice(4)
 
 if (!command || command.toLowerCase() == "help") {
     tampilkanTodo()
+} else if (command == "task"){
+    daftarTask(inputId)
 } else if (command == "list") {
-    daftarTask()
+    daftarList()
 } else if (command == "add") {
     tambahTugas(inputTugas)
 } else if (command == "complete") {
@@ -43,7 +45,12 @@ function tampilkanTodo() {
       $ node todo.js filter:<tag_name>`)
 }
 
-function daftarTask() {
+function daftarTask(){
+    
+      for (let i in datanya[inputId -1]) console.log(`${i}: ${datanya[inputId - 1][i]}`)
+}
+
+function daftarList() {
 
     if (datanya.length === 0) {
         console.log('Daftar kerjaan kosong.');
@@ -72,7 +79,7 @@ function tambahTugas(tugas) {
 function beres(id) {
     datanya.forEach(item => {
         if (item.id == id) {
-            item.complete = true
+            item.complete = false
             console.log(`"${item.namaTugas}" telah selesai`)
         }
     })
