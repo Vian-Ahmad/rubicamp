@@ -8,7 +8,7 @@ const taging = process.argv.slice(4)
 if (!command || command.toLowerCase() == "help") {
     tampilkanTodo()
 } else if (command == "task"){
-    daftarTask(inputId)
+    rincianTask(inputId)
 } else if (command == "list") {
     daftarList()
 } else if (command == "add") {
@@ -45,7 +45,7 @@ function tampilkanTodo() {
       $ node todo.js filter:<tag_name>`)
 }
 
-function daftarTask(){
+function rincianTask(){
     
       for (let i in datanya[inputId -1]) console.log(`${i}: ${datanya[inputId - 1][i]}`)
 }
