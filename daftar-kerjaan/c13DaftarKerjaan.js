@@ -3,7 +3,7 @@ const datanya = JSON.parse(fs.readFileSync('todo.json', 'utf-8'))
 const command = process.argv[2]
 const inputId = process.argv[3]
 const inputTugas = process.argv.slice(3).join(' ')
-const taging = process.argv.slice(4)
+const tags = process.argv.slice(4).join('')
 
 if (!command || command.toLowerCase() == "help") {
     tampilkanTodo()
@@ -24,11 +24,10 @@ if (!command || command.toLowerCase() == "help") {
 } else if (command == "list:completed") {
     daftarBeres(inputId)
 } else if (command == "tag") {
-    tambahTag(taging)
+    tambahTag(tags)
 } else if (`filter:${process.argv.slice(7)}`) {
-    pilahTag(`filter:${process.argv.slice(7)}`)
+    pilahTag()
 }
-console.log(process.argv)
 function tampilkanTodo() {
 
     console.log(`      >>> JS TODO <<<
@@ -121,8 +120,9 @@ function belumBeres(order) {
     // for (let i of datanya) {
     //     if (!i.complete) {
     //         i.complete = "[ ]"
-    //         wadah.push(`${i.id}: ${i.complete} ${namaTugas}`)
+    //         wadah.push(`${i.id}: ${i.complete} ${i.namaTugas}`)
     //     }
+
     // }
     // if (id == "asc") console.log(wadah.join('\n'));
     // else if (id == "desc") console.log(wadah.reverse().join('\n'))
@@ -159,8 +159,8 @@ function daftarBeres(id) {
     // else if (id == "desc") console.log(wadah.reverse().join('\n'))
 
 
-    // console.log("Daftar Pekerjaan");
-    // const tugasBelumBeres = datanya.filter(item => item.complete);
+    console.log("Daftar Pekerjaan");
+    const tugasBelumBeres = datanya.filter(item => item.complete);
 
     if (tugasBelumBeres.length === 0) {
         console.log('Semua pekerjaan selesai atau tidak ada pekerjaan.');
@@ -178,48 +178,55 @@ function daftarBeres(id) {
 }
 
 function tambahTag(tagar) {
+    // datanya.forEach(item => {
+    //     if (item.id == id) {
+    //         item.tags.push(tags)
+    //         console.log(
+    //             `Tag ${tagar} telah ditambahkan ke dalam daftar '${datanya[datanya.findIndex((i) => i.id == inputId)].namaTugas
+    //             }'`)
+    //     }
+    // })
 
-    // const tugas = datanya.find(item => item.id == inputId);
-            const tugas = datanya[datanya.findIndex((i) => i.id == inputId)]
-    if (tugas) {
-        if (!tugas.tags.includes(tagar)) {
-            tugas.tags.push(tagar);
-            fs.writeFileSync("todo.json", JSON.stringify(datanya), "utf-8");
-            console.log(`Tag ${tagar} telah ditambahkan ke dalam daftar '${tugas.namaTugas}'`);
+    console.log(
+        `Tag ${tagar} telah ditambahkan ke dalam daftar '${datanya[datanya.findIndex((i) => i.id == inputId)].namaTugas
+        }'`
+    );
+    datanya.forEach((tag) => {
+        if (!datanya[inputId - 1].tags.includes(tagar)) {
+            datanya[inputId - 1].tags.push(tagar)
         }
-    }
+        })
+        
 
-    // console.log(
-    //     `Tag ${tagar} telah ditambahkan ke dalam daftar '${datanya[datanya.findIndex((i) => i.id == inputId)].namaTugas
-    //     }'`
-    // );
-    // datanya[inputId - 1].tags = process.argv.slice(4);
-  
-        // fs.writeFileSync("todo.json", JSON.stringify(datanya), "utf-8");
-    }
+    
+    fs.writeFileSync("todo.json", JSON.stringify(datanya), "utf-8");
+}
 
 function pilahTag(konten) {
+    console.log("Daftar Pekerjaan");
+    // const filteredTasks = datanya.filter(item => item.tags.includes(konten));
 
-    const filteredTasks = datanya.filter(item => item.tags.includes(konten));
+    // if (filteredTasks.length === 0) {
+    //     console.log(`Tidak ada tugas dengan tag '${konten}'.`);
+    // } else {
+    //     console.log(`Daftar Pekerjaan dengan Tag '${konten}'`);
+    //     filteredTasks.forEach(task => {
+    //         console.log(`${task.id}: ${task.complete ? "[x]" : "[ ]"} ${task.namaTugas}`);
+    //     });
+    // }
+    // for (let i = 0; i < arrayDalamArray.length; i++) {
+    //     for (let j = 0; j < arrayDalamArray[i].length; j++) {
+    //       console.log(arrayDalamArray[i][j]);
 
-    if (filteredTasks.length === 0) {
-        console.log(`Tidak ada tugas dengan tag '${konten}'.`);
-    } else {
-        console.log(`Daftar Pekerjaan dengan Tag '${konten}'`);
-        filteredTasks.forEach(task => {
-            console.log(`${task.id}: ${task.complete ? "[x]" : "[ ]"} ${task.namaTugas}`);
-        });
+    for (let i of datanya) {
+        if (i.tags.includes(command.slice(7))) {
+            if (i.complete) {
+                i.complete = "[x]";
+                console.log(`${i.id}: ${i.complete} ${i.namaTugas}.`);
+            } else if (!i.complete) {
+                i.complete = "[ ]"
+                console.log(`${i.id}: ${i.complete} ${i.namaTugas}.`)
+            }
+        }
     }
 }
-// console.log("Daftar Pekerjaan");
-// for (let i of datanya) {
-//     if (i.tags.includes(command.slice(7))) {
-//         if (i.complete) {
-//             i.complete = "[x]";
-//             console.log(`${i.id}: ${i.complete} ${i.namaTugas}.`);
-//         } else if (!i.complete) {
-//             i.complete = "[ ]"
-//             console.log(`${i.id}: ${i.complete} ${i.namaTugas}.`)
-//         }
-//     }
-// }
