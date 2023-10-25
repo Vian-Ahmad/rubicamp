@@ -115,19 +115,6 @@ function hapus(id) {
 
 function belumBeres(order) {
 
-    // console.log("Daftar Pekerjaan");
-    // let wadah = []
-    // for (let i of datanya) {
-    //     if (!i.complete) {
-    //         i.complete = "[ ]"
-    //         wadah.push(`${i.id}: ${i.complete} ${i.namaTugas}`)
-    //     }
-
-    // }
-    // if (id == "asc") console.log(wadah.join('\n'));
-    // else if (id == "desc") console.log(wadah.reverse().join('\n'))
-
-
     const tugasBelumBeres = datanya.filter(item => !item.complete);
 
     if (tugasBelumBeres.length === 0) {
@@ -146,18 +133,6 @@ function belumBeres(order) {
 }
 
 function daftarBeres(id) {
-
-    // console.log("Daftar Pekerjaan");
-    // let wadah = []
-    // for (let i of datanya) {
-    //     if (i.complete) {
-    //         i.complete = "[x]"
-    //         wadah.push(`${i.id}: ${i.complete} ${namaTugas}`)
-    //     }
-    // }
-    // if (id == "asc") console.log(wadah.join('\n'));
-    // else if (id == "desc") console.log(wadah.reverse().join('\n'))
-
 
     console.log("Daftar Pekerjaan");
     const tugasBelumBeres = datanya.filter(item => item.complete);
@@ -178,14 +153,6 @@ function daftarBeres(id) {
 }
 
 function tambahTag(tagar) {
-    // datanya.forEach(item => {
-    //     if (item.id == id) {
-    //         item.tags.push(tags)
-    //         console.log(
-    //             `Tag ${tagar} telah ditambahkan ke dalam daftar '${datanya[datanya.findIndex((i) => i.id == inputId)].namaTugas
-    //             }'`)
-    //     }
-    // })
 
     console.log(
         `Tag ${tagar} telah ditambahkan ke dalam daftar '${datanya[datanya.findIndex((i) => i.id == inputId)].namaTugas
@@ -196,8 +163,6 @@ function tambahTag(tagar) {
             datanya[inputId - 1].tags.push(tagar)
         }
         })
-        
-
     
     fs.writeFileSync("todo.json", JSON.stringify(datanya), "utf-8");
 }
