@@ -21,7 +21,7 @@ if (!command || command.toLowerCase() == "help") {
     hapus(inputId)
 } else if (command == "list:outstanding") {
     belumBeres(inputId)
-} else if (command == "list:complete") {
+} else if (command == "list:completed") {
     daftarBeres(inputId)
 } else if (command == "tag") {
     tambahTag(taging)
@@ -123,7 +123,7 @@ function belumBeres(order) {
         console.log('Semua pekerjaan selesai atau tidak ada pekerjaan.');
     } else {
         if (order === "asc") {
-            tugasBelumBeres.forEach((task) => {
+            tugasBelumBeres.forEach((task, index) => {
                 console.log(`${task.id}. [ ] ${task.namaTugas}`);
             });
         } else if (order === "desc") {
@@ -143,7 +143,7 @@ function daftarBeres(id) {
         console.log('Semua pekerjaan selesai atau tidak ada pekerjaan.');
     } else {
         if (id === "asc") {
-            tugasBelumBeres.forEach((task) => {
+            tugasBelumBeres.forEach((task, index) => {
                 console.log(`${task.id}. [x] ${task.namaTugas}`);
             });
         } else if (id === "desc") {
