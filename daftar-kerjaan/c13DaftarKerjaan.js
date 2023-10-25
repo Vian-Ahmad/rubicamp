@@ -7,7 +7,7 @@ const taging = process.argv.slice(4)
 
 if (!command || command.toLowerCase() == "help") {
     tampilkanTodo()
-} else if (command == "task"){
+} else if (command == "task") {
     rincianTask(inputId)
 } else if (command == "list") {
     daftarList()
@@ -45,9 +45,9 @@ function tampilkanTodo() {
       $ node todo.js filter:<tag_name>`)
 }
 
-function rincianTask(){
-    
-      for (let i in datanya[inputId -1]) console.log(`${i}: ${datanya[inputId - 1][i]}`)
+function rincianTask() {
+
+    for (let i in datanya[inputId - 1]) console.log(`${i}: ${datanya[inputId - 1][i]}`)
 }
 
 function daftarList() {
@@ -77,9 +77,10 @@ function tambahTugas(tugas) {
 }
 
 function beres(id) {
+
     datanya.forEach(item => {
         if (item.id == id) {
-            item.complete = false
+            item.complete = true
             console.log(`"${item.namaTugas}" telah selesai`)
         }
     })
@@ -87,6 +88,7 @@ function beres(id) {
 }
 
 function batalBeres(id) {
+
     datanya.forEach(item => {
         if (item.id == id) {
             item.complete = false
@@ -102,10 +104,9 @@ function hapus(id) {
         console.log("Data hanya sampai ke- ", datanya.length);
         return;
     }
-    const tugasDihapus = datanya.splice(id - 1, 1)[0]; // Hapus dan simpan tugas yang dihapus
+    const tugasDihapus = datanya.splice(id - 1, 1)[0];
     console.log(`"${tugasDihapus.namaTugas}" telah dihapus dari daftar`);
 
-    // Setel ulang nomor ID setiap elemen
     datanya.forEach((item, index) => {
         item.id = index + 1;
     });
@@ -113,7 +114,8 @@ function hapus(id) {
     fs.writeFileSync("todo.json", JSON.stringify(datanya), 'utf-8');
 }
 
-function belumBeres(orde8r) {
+function belumBeres(order) {
+
     console.log("Daftar Pekerjaan");
     const tugasBelumBeres = datanya.filter(item => !item.complete);
 
@@ -121,7 +123,7 @@ function belumBeres(orde8r) {
         console.log('Semua pekerjaan selesai atau tidak ada pekerjaan.');
     } else {
         if (order === "asc") {
-            tugasBelumBeres.forEach((task, index) => {
+            tugasBelumBeres.forEach((task) => {
                 console.log(`${task.id}. [ ] ${task.namaTugas}`);
             });
         } else if (order === "desc") {
@@ -133,15 +135,23 @@ function belumBeres(orde8r) {
 }
 
 function daftarBeres(id) {
-    console.log("daftar kerjaan")
-    for (let i of datanya) {
-        if (i.complete) {
-            i.complete = "[x]";
-            wadah.push(`${i.id}: ${i.complete} ${i.namaTugas}.`);
+
+    console.log("Daftar Pekerjaan");
+    const tugasBelumBeres = datanya.filter(item => item.complete);
+
+    if (tugasBelumBeres.length === 0) {
+        console.log('Semua pekerjaan selesai atau tidak ada pekerjaan.');
+    } else {
+        if (id === "asc") {
+            tugasBelumBeres.forEach((task) => {
+                console.log(`${task.id}. [x] ${task.namaTugas}`);
+            });
+        } else if (id === "desc") {
+            tugasBelumBeres.reverse().forEach((task, index) => {
+                console.log(`${task.id}. [x] ${task.namaTugas}`);
+            });
         }
     }
-    if (id == "asc") console.log(wadah2.join("\n"));
-    else if (id == "desc") console.log(wadah2.reverse().join("\n"));
 }
 
 function tambahTag(tagar) {
