@@ -3,7 +3,7 @@ const datanya = JSON.parse(fs.readFileSync('todo.json', 'utf-8'))
 const command = process.argv[2]
 const inputId = process.argv[3]
 const inputTugas = process.argv.slice(3).join(' ')
-const tags = process.argv.slice(4).join('')
+const taging = process.argv.slice(4).join('')
 
 if (!command || command.toLowerCase() == "help") {
     tampilkanTodo()
@@ -24,7 +24,7 @@ if (!command || command.toLowerCase() == "help") {
 } else if (command == "list:completed") {
     daftarBeres(inputId)
 } else if (command == "tag") {
-    tambahTag(tags)
+    tambahTag(taging)
 } else if (`filter:${process.argv.slice(7)}`) {
     pilahTag()
 }
@@ -158,9 +158,10 @@ function tambahTag(tagar) {
         `Tag ${tagar} telah ditambahkan ke dalam daftar '${datanya[datanya.findIndex((i) => i.id == inputId)].namaTugas
         }'`
     );
-    datanya.forEach((tag) => {
-        if (!datanya[inputId - 1].tags.includes(tagar)) {
-            datanya[inputId - 1].tags.push(tagar)
+    const wadah = process.argv.slice(4)
+    wadah.forEach((tag) => {
+        if (!datanya[inputId - 1].tags.includes(tag)) {
+            datanya[inputId - 1].tags.push(tag)
         }
         })
     
