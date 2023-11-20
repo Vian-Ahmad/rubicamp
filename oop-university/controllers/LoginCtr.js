@@ -10,20 +10,24 @@ export default class MasukAkun {
     }
 
     static izin() {
-        rl.question('Username :', async (NAMA) => {
-            Login.readUserName(NAMA, function (data) {
-                if(!data) {
+        rl.question('Username :', async (userName) => {
+            Login.readUserName(userName, function (data) {
+                if (!data) {
                     console.log('Username tidak terdaftar, silahkan coba lagi')
                     MasukAkun.izin()
                 } else {
-                    rl.question('Password :', async (pass) => {
-                        if (!pass) {
-                            console.log('Password salah')
-                            MasukAkun.izin()
-                        } else {
-                            masuk()
-                            mainMenu()
-                        }
+                    rl.question('Password :', async (nomorPin) => {
+                        Login.readNomorPin(nomorPin, function (pwd) {
+                            if (!pwd) {
+                                console.log('Password salah')
+                                MasukAkun.izin()
+                            } else {
+                                masuk(userName)
+                                mainMenu()
+                            }
+
+                        })
+
                     })
                 }
             })
