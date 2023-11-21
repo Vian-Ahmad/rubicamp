@@ -19,7 +19,7 @@ export default class MatkulChannel {
                     MatkulChannel.tambahMk()
                     break;
                 case "4":
-
+                    MatkulChannel.hapusMk()
                     break;
                 case "5":
                     mainMenu()
@@ -75,4 +75,18 @@ export default class MatkulChannel {
             })
         }
     }
+
+    static async hapusMk() {
+        rl.question('Masukkan Kode Mata Kuliah : ', async (idMatkul) => {
+            const dosen = await MataKuliah.read()
+            if (dosen) {
+               console.log(`Mata Kuliah dengan kode ${idMatkul}, telah dihapus`)
+               await MataKuliah.delete(idMatkul)
+               MatkulChannel.menuMk()
+            } else {
+               console.log(`Gagal menghapus Mata Kuliah, ID Mata Kuliah tidak terdaftar`)
+                MatkulChannel.menuMk()
+            }
+         })
+      }
 }
